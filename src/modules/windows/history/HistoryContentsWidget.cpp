@@ -382,7 +382,7 @@ void HistoryContentsWidget::copyEntryLink()
 
 	if (entryItem)
 	{
-		QApplication::clipboard()->setText(entryItem->text());
+		QApplication::clipboard()->setText(entryItem->text(), QClipboard::Selection);
 	}
 }
 

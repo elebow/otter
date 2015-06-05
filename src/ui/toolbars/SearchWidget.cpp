@@ -201,8 +201,8 @@ void SearchWidget::contextMenuEvent(QContextMenuEvent *event)
 	menu.addSeparator();
 	menu.addAction(tr("Cut"), lineEdit(), SLOT(cut()), QKeySequence(QKeySequence::Cut))->setEnabled(lineEdit()->hasSelectedText());
 	menu.addAction(tr("Copy"), lineEdit(), SLOT(copy()), QKeySequence(QKeySequence::Copy))->setEnabled(lineEdit()->hasSelectedText());
-	menu.addAction(tr("Paste"), lineEdit(), SLOT(paste()), QKeySequence(QKeySequence::Paste))->setEnabled(!QApplication::clipboard()->text().isEmpty());
-	menu.addAction(tr("Paste and Go"), this, SLOT(pasteAndGo()))->setEnabled(!QApplication::clipboard()->text().isEmpty());
+	menu.addAction(tr("Paste"), lineEdit(), SLOT(paste()), QKeySequence(QKeySequence::Paste))->setEnabled(!QApplication::clipboard()->text(QClipboard::Selection).isEmpty());
+	menu.addAction(tr("Paste and Go"), this, SLOT(pasteAndGo()))->setEnabled(!QApplication::clipboard()->text(QClipboard::Selection).isEmpty());
 	menu.addAction(tr("Delete"), this, SLOT(deleteText()), QKeySequence(QKeySequence::Delete))->setEnabled(lineEdit()->hasSelectedText());
 	menu.addSeparator();
 	menu.addAction(tr("Copy to Note"), this, SLOT(copyToNote()))->setEnabled(!lineEdit()->text().isEmpty());

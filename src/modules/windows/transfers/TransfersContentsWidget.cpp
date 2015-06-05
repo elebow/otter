@@ -324,7 +324,7 @@ void TransfersContentsWidget::copyTransferInformation()
 
 	if (item)
 	{
-		QApplication::clipboard()->setText(item->toolTip().remove(QRegularExpression(QLatin1String("<[^>]*>"))));
+		QApplication::clipboard()->setText(item->toolTip().remove(QRegularExpression(QLatin1String("<[^>]*>"))), QClipboard::Selection);
 	}
 }
 

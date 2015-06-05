@@ -370,7 +370,7 @@ void CacheContentsWidget::copyEntryLink()
 
 	if (entryItem)
 	{
-		QApplication::clipboard()->setText(entryItem->data(Qt::UserRole).toString());
+		QApplication::clipboard()->setText(entryItem->data(Qt::UserRole).toString(), QClipboard::Selection);
 	}
 }
 

@@ -177,7 +177,7 @@ void SourceViewerWebWidget::triggerAction(int identifier, bool checked)
 
 			break;
 		case ActionsManager::CopyAddressAction:
-			QApplication::clipboard()->setText(getUrl().toString());
+			QApplication::clipboard()->setText(getUrl().toString(), QClipboard::Selection);
 
 			break;
 		case ActionsManager::CopyToNoteAction:

@@ -150,7 +150,7 @@ void ConsoleWidget::clear()
 
 void ConsoleWidget::copyText()
 {
-	QApplication::clipboard()->setText(m_ui->consoleView->currentIndex().data(Qt::DisplayRole).toString());
+	QApplication::clipboard()->setText(m_ui->consoleView->currentIndex().data(Qt::DisplayRole).toString(), QClipboard::Selection);
 }
 
 void ConsoleWidget::filterCategories()

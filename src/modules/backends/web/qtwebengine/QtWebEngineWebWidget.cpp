@@ -324,7 +324,7 @@ void QtWebEngineWebWidget::triggerAction(int identifier, bool checked)
 		case ActionsManager::CopyLinkToClipboardAction:
 			if (!m_hitResult.linkUrl.isEmpty())
 			{
-				QGuiApplication::clipboard()->setText(m_hitResult.linkUrl.toString());
+				QGuiApplication::clipboard()->setText(m_hitResult.linkUrl.toString(), QClipboard::Selection);
 			}
 
 			break;
@@ -374,7 +374,7 @@ void QtWebEngineWebWidget::triggerAction(int identifier, bool checked)
 		case ActionsManager::CopyFrameLinkToClipboardAction:
 			if (m_hitResult.frameUrl.isValid())
 			{
-				QGuiApplication::clipboard()->setText(m_hitResult.frameUrl.toString());
+				QGuiApplication::clipboard()->setText(m_hitResult.frameUrl.toString(), QClipboard::Selection);
 			}
 
 			break;
@@ -428,7 +428,7 @@ void QtWebEngineWebWidget::triggerAction(int identifier, bool checked)
 		case ActionsManager::CopyImageUrlToClipboardAction:
 			if (!m_hitResult.imageUrl.isEmpty())
 			{
-				QApplication::clipboard()->setText(m_hitResult.imageUrl.toString());
+				QApplication::clipboard()->setText(m_hitResult.imageUrl.toString(), QClipboard::Selection);
 			}
 
 			break;
@@ -487,7 +487,7 @@ void QtWebEngineWebWidget::triggerAction(int identifier, bool checked)
 		case ActionsManager::CopyMediaUrlToClipboardAction:
 			if (!m_hitResult.mediaUrl.isEmpty())
 			{
-				QApplication::clipboard()->setText(m_hitResult.mediaUrl.toString());
+				QApplication::clipboard()->setText(m_hitResult.mediaUrl.toString(), QClipboard::Selection);
 			}
 
 			break;
@@ -575,13 +575,13 @@ void QtWebEngineWebWidget::triggerAction(int identifier, bool checked)
 
 				if (!text.isEmpty())
 				{
-					QApplication::clipboard()->setText(text);
+					QApplication::clipboard()->setText(text, QClipboard::Selection);
 				}
 			}
 
 			break;
 		case ActionsManager::CopyAddressAction:
-			QApplication::clipboard()->setText(getUrl().toString());
+			QApplication::clipboard()->setText(getUrl().toString(), QClipboard::Selection);
 
 			break;
 		case ActionsManager::CopyToNoteAction:
@@ -709,18 +709,18 @@ void QtWebEngineWebWidget::openUrl(const QUrl &url, OpenHints hints)
 void QtWebEngineWebWidget::pasteText(const QString &text)
 {
 	QMimeData *mimeData = new QMimeData();
-	const QStringList mimeTypes = QGuiApplication::clipboard()->mimeData()->formats();
+	const QStringList mimeTypes = QGuiApplication::clipboard()->mimeData(QClipboard::Selection)->formats();
 
 	for (int i = 0; i < mimeTypes.count(); ++i)
 	{
-		mimeData->setData(mimeTypes.at(i), QGuiApplication::clipboard()->mimeData()->data(mimeTypes.at(i)));
+		mimeData->setData(mimeTypes.at(i), QGuiApplication::clipboard()->mimeData(QClipboard::Selection)->data(mimeTypes.at(i)));
 	}
 
-	QGuiApplication::clipboard()->setText(text);
+	QGuiApplication::clipboard()->setText(text, QClipboard::Selection);
 
 	triggerAction(ActionsManager::PasteAction);
 
-	QGuiApplication::clipboard()->setMimeData(mimeData);
+	QGuiApplication::clipboard()->setMimeData(mimeData, QClipboard::Selection);
 }
 
 void QtWebEngineWebWidget::iconReplyFinished()
@@ -1201,7 +1201,7 @@ void QtWebEngineWebWidget::updateEditActions()
 
 	if (m_actions.contains(ActionsManager::PasteAndGoAction))
 	{
-		m_actions[ActionsManager::PasteAndGoAction]->setEnabled(!QApplication::clipboard()->text().isEmpty());
+		m_actions[ActionsManager::PasteAndGoAction]->setEnabled(!QApplication::clipboard()->text(QClipboard::Selection).isEmpty());
 	}
 
 	if (m_actions.contains(ActionsManager::PasteNoteAction))

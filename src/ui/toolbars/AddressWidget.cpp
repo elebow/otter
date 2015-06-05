@@ -240,7 +240,7 @@ void AddressWidget::contextMenuEvent(QContextMenuEvent *event)
 	menu.addSeparator();
 	menu.addAction(tr("Cut"), lineEdit(), SLOT(cut()), QKeySequence(QKeySequence::Cut))->setEnabled(lineEdit()->hasSelectedText());
 	menu.addAction(tr("Copy"), lineEdit(), SLOT(copy()), QKeySequence(QKeySequence::Copy))->setEnabled(lineEdit()->hasSelectedText());
-	menu.addAction(tr("Paste"), lineEdit(), SLOT(paste()), QKeySequence(QKeySequence::Paste))->setEnabled(!QApplication::clipboard()->text().isEmpty());
+	menu.addAction(tr("Paste"), lineEdit(), SLOT(paste()), QKeySequence(QKeySequence::Paste))->setEnabled(!QApplication::clipboard()->text(QClipboard::Selection).isEmpty());
 
 	if (!m_isUsingSimpleMode)
 	{
@@ -704,9 +704,9 @@ bool AddressWidget::eventFilter(QObject *object, QEvent *event)
 					showPopup();
 				}
 			}
-			else if (lineEdit()->text().isEmpty() && mouseEvent->button() == Qt::MiddleButton && !QApplication::clipboard()->text().isEmpty() && SettingsManager::getValue(QLatin1String("AddressField/PasteAndGoOnMiddleClick")).toBool())
+			else if (lineEdit()->text().isEmpty() && mouseEvent->button() == Qt::MiddleButton && !QApplication::clipboard()->text(QClipboard::Selection).isEmpty() && SettingsManager::getValue(QLatin1String("AddressField/PasteAndGoOnMiddleClick")).toBool())
 			{
-				handleUserInput(QApplication::clipboard()->text().trimmed());
+				handleUserInput(QApplication::clipboard()->text(QClipboard::Selection).trimmed());
 
 				mouseEvent->accept();
 

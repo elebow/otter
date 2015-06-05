@@ -184,7 +184,7 @@ void ConfigurationContentsWidget::copyOptionName()
 
 	if (index.isValid())
 	{
-		QApplication::clipboard()->setText(index.data(Qt::UserRole).toString());
+		QApplication::clipboard()->setText(index.data(Qt::UserRole).toString(), QClipboard::Selection);
 	}
 }
 
@@ -194,7 +194,7 @@ void ConfigurationContentsWidget::copyOptionValue()
 
 	if (index.isValid())
 	{
-		QApplication::clipboard()->setText(index.data(Qt::EditRole).toString());
+		QApplication::clipboard()->setText(index.data(Qt::EditRole).toString(), QClipboard::Selection);
 	}
 }
 
