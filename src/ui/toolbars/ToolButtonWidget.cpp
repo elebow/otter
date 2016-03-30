@@ -95,7 +95,11 @@ void ToolButtonWidget::paintEvent(QPaintEvent *event)
 		}
 	}
 
-	option.text = option.fontMetrics.elidedText(option.text, Qt::ElideRight, (option.rect.width() - (option.fontMetrics.width(QLatin1Char(' ')) * 2) - ((toolButtonStyle() == Qt::ToolButtonTextBesideIcon) ? iconSize().width() : 0)));
+	int spaceWidth = option.fontMetrics.width(QLatin1Char(' ')) * 4;
+	int iconWidth = (toolButtonStyle() == Qt::ToolButtonTextBesideIcon) ? iconSize().width() : 0;
+	int textWidth = option.fontMetrics.width(option.text);
+	int totalWidth = spaceWidth + iconWidth + textWidth;
+	option.rect.setWidth(totalWidth);
 
 	painter.drawComplexControl(QStyle::CC_ToolButton, option);
 }
